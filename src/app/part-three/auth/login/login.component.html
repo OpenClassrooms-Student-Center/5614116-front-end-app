@@ -1,0 +1,14 @@
+<mat-spinner *ngIf="loading"></mat-spinner>
+<div class="col-sm-8 offset-sm-2 mt-2" *ngIf="!loading">
+  <form [formGroup]="loginForm">
+    <div class="form-group">
+      <label for="email">Email address</label>
+      <input type="email" id="email" formControlName="email" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" formControlName="password" class="form-control">
+    </div>
+    <button class="btn btn-success" (click)="onLogin()" [disabled]="loginForm.invalid">Login</button>
+  </form>
+</div>

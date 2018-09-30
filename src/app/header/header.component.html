@@ -1,0 +1,32 @@
+<header>
+  <h1 class="header-title">
+    SellMyStuff
+  </h1>
+  <ul class="header-navigation">
+    <li class="header-navigation-item" *ngIf="part === 1 || (part >= 3 && isAuth)">
+      <a class="header-link" routerLink="/{{ partString }}/all-stuff" routerLinkActive="active">STUFF FOR SALE</a>
+    </li>
+    <li class="header-navigation-item" *ngIf="part === 1 || (part >= 3 && isAuth)">
+      <a class="header-link" routerLink="/{{ partString }}/new-thing" routerLinkActive="active">SELL A THING</a>
+    </li>
+    <li class="header-navigation-item" *ngIf="(part >= 3 && isAuth)">
+      <a class="header-link" style="cursor: pointer" (click)="onLogout()">LOGOUT</a>
+    </li>
+    <li class="header-navigation-item" *ngIf="(part >= 3 && !isAuth)">
+      <a class="header-link" routerLink="/{{ partString }}/auth/login" routerLinkActive="active">LOGIN</a>
+    </li>
+    <li class="header-navigation-item" *ngIf="(part >= 3 && !isAuth)">
+      <a class="header-link" routerLink="/{{ partString }}/auth/signup" routerLinkActive="active">SIGN UP</a>
+    </li>
+  </ul>
+  <ul class="header-navigation nav-end">
+    <li class="header-navigation-item font-italic">
+      <a class="header-link" style="cursor:pointer" (click)="onBackToParts()">BACK TO PART SELECTION</a>
+    </li>
+  </ul>
+</header>
+<div class="hero-image" *ngIf="mode === 'list'">
+  <h2 class="hero-text">
+    THE ABSOLUTE BEST PLACE TO SELL YOUR STUFF
+  </h2>
+</div>
