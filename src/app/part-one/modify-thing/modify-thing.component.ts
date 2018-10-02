@@ -39,7 +39,7 @@ export class ModifyThingComponent implements OnInit {
             this.thing = thing;
             this.thingForm.get('title').setValue(this.thing.title);
             this.thingForm.get('description').setValue(this.thing.description);
-            this.thingForm.get('price').setValue(this.thing.price);
+            this.thingForm.get('price').setValue(this.thing.price / 100);
             this.thingForm.get('imageUrl').setValue(this.thing.imageUrl);
             this.loading = false;
           }
@@ -53,7 +53,7 @@ export class ModifyThingComponent implements OnInit {
     const thing = new Thing();
     thing.title = this.thingForm.get('title').value;
     thing.description = this.thingForm.get('description').value;
-    thing.price = this.thingForm.get('price').value;
+    thing.price = this.thingForm.get('price').value * 100;
     thing.imageUrl = this.thingForm.get('imageUrl').value;
     thing._id = new Date().getTime().toString();
     thing.userId = 'userID40282382';

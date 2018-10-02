@@ -40,7 +40,7 @@ export class ModifyThingWithUploadComponent implements OnInit {
             this.thingForm = this.formBuilder.group({
               title: [thing.title, Validators.required],
               description: [thing.description, Validators.required],
-              price: [thing.price, Validators.required],
+              price: [thing.price / 100, Validators.required],
               image: [thing.imageUrl, Validators.required, mimeType]
             });
             this.imagePreview = thing.imageUrl;
@@ -56,7 +56,7 @@ export class ModifyThingWithUploadComponent implements OnInit {
     const thing = new Thing();
     thing.title = this.thingForm.get('title').value;
     thing.description = this.thingForm.get('description').value;
-    thing.price = this.thingForm.get('price').value;
+    thing.price = this.thingForm.get('price').value * 100;
     thing._id = new Date().getTime().toString();
     thing.imageUrl = '';
     thing.userId = this.userId;

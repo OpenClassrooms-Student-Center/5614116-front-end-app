@@ -49,7 +49,7 @@ export class NewThingComponent implements OnInit, OnDestroy {
     const thing = new Thing();
     thing.title = this.thingForm.get('title').value;
     thing.description = this.thingForm.get('description').value;
-    thing.price = this.thingForm.get('price').value;
+    thing.price = this.thingForm.get('price').value * 100;
     thing.imageUrl = this.thingForm.get('imageUrl').value;
     thing._id = new Date().getTime().toString();
     thing.userId = this.userId;
