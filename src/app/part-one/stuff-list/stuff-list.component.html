@@ -1,4 +1,5 @@
-<p class="text-center" *ngIf="stuff.length <= 0">No stuff for sale!</p>
+<mat-spinner *ngIf="loading"></mat-spinner>
+<p class="text-center" *ngIf="stuff.length <= 0 && !loading">No stuff for sale!</p>
 <div class="stuff-grid" *ngIf="stuff.length >= 0">
   <div class="thing-pane"
        *ngFor="let thing of stuff"

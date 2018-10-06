@@ -14,6 +14,7 @@ export class StuffListComponent implements OnInit, OnDestroy {
 
   public stuff: Thing[] = [];
   public part: number;
+  public loading: boolean;
 
   private stuffSub: Subscription;
   private partSub: Subscription;
@@ -23,10 +24,12 @@ export class StuffListComponent implements OnInit, OnDestroy {
               private router: Router) { }
 
   ngOnInit() {
+    this.loading = true;
     this.state.mode$.next('list');
     this.stuffSub = this.stuffService.stuff$.subscribe(
       (stuff) => {
         this.stuff = stuff;
+        this.loading = false;
       }
     );
     this.partSub = this.state.part$.subscribe(
