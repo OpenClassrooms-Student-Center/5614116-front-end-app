@@ -14,7 +14,7 @@ import { AuthService } from '../../services/auth.service';
 export class SingleThingComponent implements OnInit, OnDestroy {
 
   public thing: Thing;
-  public loading = false;
+  public loading: boolean;
   public userId: string;
   public part: number;
 
@@ -27,11 +27,13 @@ export class SingleThingComponent implements OnInit, OnDestroy {
               private auth: AuthService) { }
 
   ngOnInit() {
+    this.loading = true;
     this.state.mode$.next('single-thing');
     this.route.params.subscribe(
       (params: Params) => {
         this.stuffService.getThingById(params.id).then(
           (thing: Thing) => {
+            this.loading = false;
             this.thing = thing;
           }
         );
