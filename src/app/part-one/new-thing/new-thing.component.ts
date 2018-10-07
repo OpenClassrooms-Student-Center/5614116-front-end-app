@@ -57,7 +57,18 @@ export class NewThingComponent implements OnInit, OnDestroy {
       () => {
         this.thingForm.reset();
         this.loading = false;
-        this.router.navigate(['/part-one/all-stuff']);
+        switch (this.part) {
+          case 1:
+          case 2:
+            this.router.navigate(['/part-one/all-stuff']);
+            break;
+          case 3:
+            this.router.navigate(['/part-three/all-stuff']);
+            break;
+          case 4:
+            this.router.navigate(['/part-four/all-stuff']);
+            break;
+        }
       }
     ).catch(
       (error) => {

@@ -29,6 +29,7 @@ export class SingleThingComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loading = true;
     this.state.mode$.next('single-thing');
+    this.userId = this.auth.userId ? this.auth.userId : 'userID40282382';
     this.route.params.subscribe(
       (params: Params) => {
         this.stuffService.getThingById(params.id).then(

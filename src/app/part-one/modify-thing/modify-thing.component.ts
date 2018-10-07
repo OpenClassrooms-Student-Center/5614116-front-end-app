@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { StateService } from '../../services/state.service';
 import { StuffService } from '../../services/stuff.service';
 import { Thing } from '../../models/Thing.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-modify-thing',
@@ -16,6 +17,9 @@ export class ModifyThingComponent implements OnInit {
   thingForm: FormGroup;
   loading = false;
   errorMessage: string;
+  part: number;
+
+  private partSub: Subscription;
 
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
@@ -31,6 +35,11 @@ export class ModifyThingComponent implements OnInit {
       price: [0, Validators.required],
       imageUrl: [null, Validators.required]
     });
+    this.partSub = this.state.part$.subscribe(
+      (part) => {
+        this.part = part;
+      }
+    );
     this.state.mode$.next('form');
     this.route.params.subscribe(
       (params) => {
@@ -56,12 +65,23 @@ export class ModifyThingComponent implements OnInit {
     thing.price = this.thingForm.get('price').value * 100;
     thing.imageUrl = this.thingForm.get('imageUrl').value;
     thing._id = new Date().getTime().toString();
-    thing.userId = 'userID40282382';
+    thing.userId = this.thing.userId;
     this.stuffService.modifyThing(this.thing._id, thing).then(
       () => {
         this.thingForm.reset();
         this.loading = false;
-        this.router.navigate(['/part-one/all-stuff']);
+        switch (this.part) {
+          case 1:
+          case 2:
+            this.router.navigate(['/part-one/all-stuff']);
+            break;
+          case 3:
+            this.router.navigate(['/part-three/all-stuff']);
+            break;
+          case 4:
+            this.router.navigate(['/part-four/all-stuff']);
+            break;
+        }
       },
       (error) => {
         this.loading = false;

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -8,43 +9,58 @@ import { BehaviorSubject } from 'rxjs';
 export class AuthService {
 
   isAuth$ = new BehaviorSubject<boolean>(false);
-  token: string = null;
-  userId: string = 'temp user';
+  token: string;
+  userId: string;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,
+              private http: HttpClient) {}
 
   createNewUser(email: string, password: string) {
     return new Promise((resolve, reject) => {
-      setTimeout(
-        () => {
-          this.isAuth$.next(true);
-          resolve();
-        }, 2000
-      );
+      this.http.post(
+        'http://localhost:3000/api/auth/signup',
+        { email: email, password: password })
+        .subscribe(
+          () => {
+            this.login(email, password).then(
+              () => {
+                resolve();
+              }
+            ).catch(
+              (error) => {
+                reject(error);
+              }
+            );
+          },
+          (error) => {
+            reject(error);
+          }
+        );
     });
   }
 
   login(email: string, password: string) {
     return new Promise((resolve, reject) => {
-      setTimeout(
-        () => {
-          this.isAuth$.next(true);
-          resolve();
-        }, 2000
-      );
+      this.http.post(
+        'http://localhost:3000/api/auth/login',
+        { email: email, password: password})
+        .subscribe(
+          (authData: { token: string, userId: string }) => {
+            this.token = authData.token;
+            this.userId = authData.userId;
+            this.isAuth$.next(true);
+            resolve();
+          },
+          (error) => {
+            reject(error);
+          }
+        );
     });
   }
 
   logout() {
-    return new Promise((resolve, reject) => {
-      setTimeout(
-        () => {
-          this.isAuth$.next(false);
-          this.userId = null;
-          this.token = null;
-          resolve();
-        }, 300
-      );
-    });
+    this.isAuth$.next(false);
+    this.userId = null;
+    this.token = null;
   }
 }

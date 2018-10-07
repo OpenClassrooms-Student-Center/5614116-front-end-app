@@ -19,7 +19,8 @@ import { LoginComponent } from './part-three/auth/login/login.component';
 import { SignupComponent } from './part-three/auth/signup/signup.component';
 import { NewThingWithUploadComponent } from './part-four/new-thing-with-upload/new-thing-with-upload.component';
 import { ModifyThingWithUploadComponent } from './part-four/modify-thing-with-upload/modify-thing-with-upload.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from './interceptors/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatProgressSpinnerModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
