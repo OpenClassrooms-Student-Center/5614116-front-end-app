@@ -61,7 +61,18 @@ export class SingleThingComponent implements OnInit, OnDestroy {
   }
 
   onModify() {
-    this.router.navigate(['/part-one/modify-thing/' + this.thing._id]);
+    switch (this.part) {
+      case 1:
+      case 2:
+        this.router.navigate(['/part-one/modify-thing/' + this.thing._id]);
+        break;
+      case 3:
+        this.router.navigate(['/part-three/modify-thing/' + this.thing._id]);
+        break;
+      case 4:
+        this.router.navigate(['/part-four/modify-thing/' + this.thing._id]);
+        break;
+    }
   }
 
   onDelete() {
@@ -69,7 +80,18 @@ export class SingleThingComponent implements OnInit, OnDestroy {
     this.stuffService.deleteThing(this.thing._id).then(
       () => {
         this.loading = false;
-        this.router.navigate(['/part-one/all-stuff']);
+        switch (this.part) {
+          case 1:
+          case 2:
+            this.router.navigate(['/part-one/all-stuff']);
+            break;
+          case 3:
+            this.router.navigate(['/part-three/all-stuff']);
+            break;
+          case 4:
+            this.router.navigate(['/part-four/all-stuff']);
+            break;
+        }
       }
     );
   }
