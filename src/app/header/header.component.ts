@@ -57,7 +57,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onLogout() {
     this.auth.logout();
-    this.router.navigate(['/part-three/auth/login']);
+    this.router.navigate(['/' + this.partString +'/auth/login']);
   }
 
   onBackToParts() {

@@ -35,6 +35,7 @@ export class NewThingWithUploadComponent implements OnInit {
       price: [0, Validators.required],
       image: [null, Validators.required, mimeType]
     });
+    this.userId = this.auth.userId;
   }
 
   onSubmit() {
