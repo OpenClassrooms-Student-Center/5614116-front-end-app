@@ -44,7 +44,6 @@ export class NewThingWithUploadComponent implements OnInit {
     thing.title = this.thingForm.get('title').value;
     thing.description = this.thingForm.get('description').value;
     thing.price = this.thingForm.get('price').value * 100;
-    thing._id = new Date().getTime().toString();
     thing.imageUrl = '';
     thing.userId = this.userId;
     this.stuffService.createNewThingWithFile(thing, this.thingForm.get('image').value).then(

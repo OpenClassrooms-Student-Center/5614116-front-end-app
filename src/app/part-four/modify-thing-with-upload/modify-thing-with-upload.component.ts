@@ -32,6 +32,7 @@ export class ModifyThingWithUploadComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     this.state.mode$.next('form');
+    this.userId = this.auth.userId;
     this.route.params.subscribe(
       (params) => {
         this.stuffService.getThingById(params.id).then(
@@ -54,13 +55,13 @@ export class ModifyThingWithUploadComponent implements OnInit {
   onSubmit() {
     this.loading = true;
     const thing = new Thing();
+    thing._id = this.thing._id;
     thing.title = this.thingForm.get('title').value;
     thing.description = this.thingForm.get('description').value;
     thing.price = this.thingForm.get('price').value * 100;
-    thing._id = new Date().getTime().toString();
     thing.imageUrl = '';
     thing.userId = this.userId;
-    this.stuffService.modifyThingWithFile(thing._id, thing, this.thingForm.get('image').value).then(
+    this.stuffService.modifyThingWithFile(this.thing._id, thing, this.thingForm.get('image').value).then(
       () => {
         this.thingForm.reset();
         this.loading = false;
@@ -75,6 +76,7 @@ export class ModifyThingWithUploadComponent implements OnInit {
 
   onImagePick(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
+    console.log(file);
     this.thingForm.get('image').patchValue(file);
     this.thingForm.get('image').updateValueAndValidity();
     const reader = new FileReader();

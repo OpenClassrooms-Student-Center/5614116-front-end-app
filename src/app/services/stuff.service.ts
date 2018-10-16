@@ -107,6 +107,7 @@ export class StuffService {
     return new Promise((resolve, reject) => {
       let thingData: Thing | FormData;
       if (typeof image === 'string') {
+        thing.imageUrl = image;
         thingData = thing;
       } else {
         thingData = new FormData();
