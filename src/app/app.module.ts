@@ -14,7 +14,7 @@ import { NewThingComponent } from './part-one/new-thing/new-thing.component';
 import { SingleThingComponent } from './part-one/single-thing/single-thing.component';
 import { ModifyThingComponent } from './part-one/modify-thing/modify-thing.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatProgressSpinnerModule } from '@angular/material';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoginComponent } from './part-three/auth/login/login.component';
 import { SignupComponent } from './part-three/auth/signup/signup.component';
 import { NewThingWithUploadComponent } from './part-four/new-thing-with-upload/new-thing-with-upload.component';
